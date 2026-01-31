@@ -1,63 +1,49 @@
-# Support Vector Machine Classification on Social Network Ads
+# Support Vector Machine: Iris Flower Classification
 
-## Overview
-This project applies Support Vector Machines (SVM) to classify whether a user is likely to purchase a product based on social network advertisement data. The goal is to understand how SVMs separate classes using optimal hyperplanes and how kernel functions affect model performance.
-
-## Objectives
-- Clean and preprocess a structured advertising dataset.
-- Visualize distributions and identify patterns through EDA.
-- Train both linear and non-linear SVM models.
-- Compare performance using various kernels (linear, RBF, polynomial).
-- Evaluate results using confusion matrices and classification metrics.
-
-## Dataset
-A synthetic social network advertisement dataset containing:
-- Age  
-- Estimated Salary  
-- Purchased (target label)
-
-## Workflow Summary
-1. **Data Loading & Cleaning**  
-   - Handle missing values  
-   - Format features  
-
-2. **Exploratory Data Analysis**  
-   - Scatterplots  
-   - Histograms  
-   - Correlation insights  
-
-3. **Train-Test Split & Scaling**  
-   - StandardScaler applied to numerical features  
-
-4. **Model Training**  
-   - Linear SVM  
-   - RBF SVM  
-   - Polynomial SVM  
-
-5. **Model Evaluation**  
-   - Accuracy  
-   - F1-score  
-   - Confusion Matrix  
-
-## Results
-- Kernel SVM (RBF) outperformed linear SVM for non-linear patterns.
-- Clear margin boundaries were observed in visualisations post-scaling.
-- Classification metrics confirm non-linear decision boundaries are most suitable.
-
-## Technologies Used
-- Python  
-- NumPy  
-- Pandas  
-- Matplotlib  
-- Seaborn  
-- Scikit-Learn  
-
-## How to Run
-```bash
-pip install -r requirements.txt
-jupyter notebook
-```
+A multi-class classification project utilizing Support Vector Machines (SVM) to categorize iris flowers based on sepal and petal dimensions.
 
 ---
 
-*This project was completed as part of the Python for Data Science and Machine Learning Bootcamp course on Udemy.*
+## Project Overview
+This project demonstrates the effectiveness of **Support Vector Machines** in high-dimensional feature spaces. Using the classic Iris dataset, I trained an SVM model with an **RBF kernel**, optimized via **GridSearch**, to achieve a highly accurate classification boundary between three distinct species.
+
+---
+
+## Exploratory Data Analysis
+Before modeling, I analyzed the feature distributions to determine the separability of the classes.
+
+### 1. Species Distribution (Pairplot)
+![Iris Pairplot](iris_pairplot.png)  
+The pairplot reveals that the *Setosa* species is perfectly linearly separable, while *Versicolor* and *Virginica* have slight overlap, requiring a non-linear kernel like RBF for optimal classification.
+
+### 2. Petal vs. Sepal Density
+![KDE Plot](setosa_kde.png)  
+Focusing on the *Setosa* species, a Kernel Density Estimate (KDE) plot shows a very tight cluster for petal length and width, serving as a primary differentiator for the model.
+
+---
+
+## Model Training & Optimization
+I implemented the `SVC` model from Scikit-Learn. To find the optimal hyperparameters, I utilized **GridSearchCV** to tune the `C` (regularization) and `gamma` (kernel coefficient) parameters.
+
+### Model Performance Metrics
+The final model was evaluated on a 30% test split, yielding exceptional precision and recall across all categories.
+
+![SVM Report](svm_report.png)
+
+### Confusion Matrix
+![Confusion Matrix](svm_confusion_matrix.png)  
+The confusion matrix confirms that the model correctly classified nearly every instance, with only minimal confusion between the closely related *Versicolor* and *Virginica* species.
+
+---
+
+## Key Takeaways
+* **The Power of Kernels**: The RBF kernel allowed the SVM to create complex, non-linear decision boundaries that a simple linear model would struggle with.
+* **Hyperparameter Tuning**: GridSearch proved essential; by testing values for `C` and `gamma`, I was able to find the "sweet spot" that maximized accuracy without overfitting the training data.
+* **Linear vs. Non-Linear**: While one species was easily separable, the SVM's margin-based logic was critical for handling the overlapping distributions of the other two species.
+
+---
+
+## How to Run
+```bash
+pip install pandas seaborn scikit-learn
+jupyter notebook "Support Vector Machines Project.ipynb"
